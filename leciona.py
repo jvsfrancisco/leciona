@@ -1,6 +1,6 @@
 __all__ = [ 'inicializar', 'finalizar', 'add_leciona', 'set_leciona', 'get_prof_by_turma', 'get_turmas_by_prof' ]
 
-import json
+import json, atexit
 
 # Leciona:
 #   id_prof: int
@@ -12,14 +12,14 @@ PATH = 'data_leciona/leciona.json'
 # Códigos de erro
 OPERACAO_REALIZADA_COM_SUCESSO = 0
 
-ARQUIVO_NAO_ENCONTRADO = 1
-ARQUIVO_EM_FORMATO_INVALIDO = 2
-ERRO_NA_ESCRITA_DO_ARQUIVO = 3
+ARQUIVO_NAO_ENCONTRADO = 30
+ARQUIVO_EM_FORMATO_INVALIDO = 31
+ERRO_NA_ESCRITA_DO_ARQUIVO = 32
 
-PROFESSOR_NAO_ENCONTRADO = 5
-TURMA_NAO_ENCONTRADA = 11
+PROFESSOR_NAO_ENCONTRADO = 25
+TURMA_NAO_ENCONTRADA = 24
 
-LECIONA_JA_ADICIONADO = 12
+LECIONA_JA_ADICIONADO = 23
 
 def inicializar() -> int:
     global lecionamentos
@@ -69,3 +69,6 @@ def get_turmas_by_prof(id_prof: int) -> tuple[int, list[int]]:
 
     if len(turmas) == 0: return PROFESSOR_NAO_ENCONTRADO, turmas
     return OPERACAO_REALIZADA_COM_SUCESSO, turmas
+
+inicializar()
+atexit.register(finalizar)
