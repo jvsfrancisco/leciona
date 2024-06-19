@@ -51,7 +51,12 @@ def add_leciona(id_prof: int, id_turma: int) -> int:
     return OPERACAO_REALIZADA_COM_SUCESSO
 
 def set_leciona(id_prof: int, id_turma: int) -> int:
-   raise NotImplementedError
+    for lecionamento in lecionamentos:
+        if id_turma == lecionamento['id_turma']:
+            lecionamento['id_prof'] = id_prof
+            return OPERACAO_REALIZADA_COM_SUCESSO
+
+    return TURMA_NAO_ENCONTRADA
 
 def get_prof_by_turma(id_turma: int) -> tuple[int, int]:
     for lecionamento in lecionamentos:
